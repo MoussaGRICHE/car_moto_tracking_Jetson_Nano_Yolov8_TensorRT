@@ -82,7 +82,7 @@ After executing the above command, you will get an engine named best.engine .
 #### 2-2-1- Launch the Detection:
 for video:
 
-	${root}/detect/build/yolov8_detect ${root}/best.engine video ${root}/src:test.mp4 	1 show
+	${root}/detect/build/yolov8_detect ${root}/best.engine video ${root}/src:test.mp4 1 show
 
 for camera:
 
@@ -100,7 +100,7 @@ for camera:
 #### 2-3-1- Launch the Tracking and Counting:
 for video:
 
-	${root}/detect/build/yolov8_detect ${root}/best.engine video ${root}/src:test.mp4 	1 show 1
+	${root}/detect/build/yolov8_detect ${root}/best.engine video ${root}/src:test.mp4 1 show 1
 
 for camera:
 
