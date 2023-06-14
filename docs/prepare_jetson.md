@@ -1,12 +1,8 @@
-
+This work has been tested on `Jetson-Nano 4GB`
     
 ## Software Specifications:
 
-Only test on `Jetson-Nano 4GB`
-
-ENVS:
-
-•	Jetpack 4.6.3
+•	Jetpack 4.6.1
 
 •	CUDA-10.2
 
