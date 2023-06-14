@@ -5,12 +5,19 @@
 Only test on `Jetson-Nano 4GB`
 
 ENVS:
+
 •	Jetpack 4.6.3
+
 •	CUDA-10.2
+
 •	CUDNN-8.2.1
+
 •	TensorRT-8.2.1
+
 •	OpenCV-4.1.1
+
 •	CMake-3.10.2
+
 
 ## Hardware Specifications:
     
