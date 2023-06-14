@@ -39,6 +39,9 @@ https://www.youtube.com/watch?v=Ucg5Zqm9ZMk
 
 Here are some pictures of my Jetson Nano.
 
-![Jetson_nano_plus_camera](https://github.com/MoussaGRICHE/car_moto_tracking_Jetson_Nano_Yolov8_TensorRT/assets/103992437/1a86bf84-f159-4904-abb6-b12251ffb1c5)
+![IMG_20230418_124711_edit_194346628243781](https://github.com/MoussaGRICHE/car_moto_tracking_Jetson_Nano_Yolov8_TensorRT/assets/103992437/a1d98635-5329-4e24-a08b-31db928e687a)
+![IMG_20230418_124530_edit_194275361997958](https://github.com/MoussaGRICHE/car_moto_tracking_Jetson_Nano_Yolov8_TensorRT/assets/103992437/00dcce0d-bec7-4fdf-bdd9-554e04bdb7ae)
+![IMG_20230412_135649_edit_9198624682970](https://github.com/MoussaGRICHE/car_moto_tracking_Jetson_Nano_Yolov8_TensorRT/assets/103992437/d93dc68c-ae8f-401c-a18d-4e58b9bb0234)
+
 
  
