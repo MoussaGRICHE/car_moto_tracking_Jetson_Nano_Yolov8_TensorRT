@@ -1,6 +1,8 @@
 # car_moto_tracking_Jetson_Nano_Yolov8_TensorRT
 Detect, track and count cars and motorcycles using yolov8 and TensorRT on Jetson Nano
 
+https://github.com/MoussaGRICHE/car_moto_tracking_Jetson_Nano_Yolov8_TensorRT/assets/103992437/f5d249c0-d31b-47f7-b733-c51bed8e4dfb
+
 To deploy this work on a Jetson Nano, you should do it in two steps:
 
 ## 1- On your PC:
@@ -113,6 +115,10 @@ for camera:
 	cd ${root}
 
 #### 2-4-1- Launch Tracking and Counting:
+If you want to count only in one direction, put 1 as 7th argument. Otherwise, for 2 directions counting, put 2 as 7th argument.
+
+Before displaying the processed video, the first frame of the video will be displayed. You should click on this frame to indicate the position of the line(s). For one direction counting, click twice and for 2 directions counting, click four time.
+
 for video:
 
 	${root}/track_count/build/yolov8_track_count ${root}/best.engine video ${root}/src/test.mp4 1 show 1
