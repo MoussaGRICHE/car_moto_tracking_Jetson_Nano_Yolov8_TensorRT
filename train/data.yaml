@@ -1,0 +1,12 @@
+path: ./data  # dataset root dir
+train: Train  # train images 
+val: Validation  # val images 
+test: Test # test images (optional)
+
+#Classes
+nc: 2
+
+# class names
+names: 
+  0: 'car'
+  1: 'motocycle'

@@ -501,7 +501,7 @@ void YOLOv8::draw_objects(
 void YOLOv8::draw_fps(const cv::Mat& image, cv::Mat& res, double infer_fps, int infer_rate)
 {
     // Draw fpsCadre (yellow box)
-    int fpsCadreWidth = 180;
+    int fpsCadreWidth = 200;
     int fpsCadreHeight = 70;
     int fpsCadreXPos = (res.cols - fpsCadreWidth) / 2;
     int fpsCadreYPos = 10;
@@ -513,7 +513,7 @@ void YOLOv8::draw_fps(const cv::Mat& image, cv::Mat& res, double infer_fps, int 
     int thickness = 2;
 
     std::string fpsText = "FPS: " + std::to_string(static_cast<int>(infer_fps));
-    std::string frameTraitText = "1/" + std::to_string(infer_rate) + " frame traited";
+    std::string frameTraitText = "1/" + std::to_string(infer_rate) + " frame processed";
 
     cv::Size fpsTextSize = cv::getTextSize(fpsText, fontFace, fontScale, thickness, nullptr);
     int fpsTextX = (res.cols - fpsTextSize.width) / 2;

@@ -225,7 +225,7 @@ int main(int argc, char** argv) {
             auto end = chrono::system_clock::now();
             double tc = chrono::duration_cast<chrono::microseconds>(end - start).count() / 1000.0;
             double infer_fps = (1000.0 / tc) * infer_rate;
-            printf("cost %2.4lf ms (%0.0lf fps, 1/ %d frame traited)\n", tc, round(infer_fps), infer_rate);
+            printf("cost %2.4lf ms (%0.0lf fps, 1/ %d frame processed)\n", tc, round(infer_fps), infer_rate);
 
             // Draw the FPSon the image
             yolov8->draw_fps(image, res, infer_fps, infer_rate);
