@@ -30,13 +30,13 @@ Then clone your own repository on your PC:
 	mkdir Validation
 
 ### 1-4- Copy your dataset:
-Copy your train dataset (images + .txt files) into data/Train
+Copy your train dataset (images + .txt files) into datasets/Train
 
-	cp -r path_to_your_train_dataset/. ${root}/train/data/Train
+	cp -r path_to_your_train_dataset/. ${root}/train/datasets/Train
 
-Copy your validation dataset (images + .txt files) into data/Validation
+Copy your validation dataset (images + .txt files) into datasets/Validation
 
-	cp -r path_to_your_validation_dataset/. ${root}/train/data/Validation
+	cp -r path_to_your_validation_dataset/. ${root}/train/datasets/Validation
 
 
 If you have more than car and motorcycle classes, modify the data.yaml to add the other classes.
@@ -46,7 +46,7 @@ If you have more than car and motorcycle classes, modify the data.yaml to add th
 	python main.py
 
 When the training is finished, your custom yolov8n model will be saved in 
-${root}/train/run/train/weights/best.pt
+${root}/train/runs/detect/train/weights/best.pt
 
 ### 1-6- Push your custom model to GitHub:
 
