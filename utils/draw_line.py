@@ -36,7 +36,9 @@ while True:
 
 # Print coordinates of clicked points
 for i in range(num_lines):
-    print(f"Line {i+1} x: {points[2*i][0]}")
-    print(f"Line {i+1} y: {points[2*i][1]}")
+    print(f"Line {i+1} start x: {points[2*i][0]}")
+    print(f"Line {i+1} start y: {points[2*i][1]}")
+    print(f"Line {i+1} end x: {points[2*i+1][0]}")
+    print(f"Line {i+1} end y: {points[2*i+1][1]}")
 
 cv2.destroyAllWindows()
