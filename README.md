@@ -150,7 +150,7 @@ for camera:
 #### Remark:
 If you are using the Jetson with SSH, you can not see the first frame of the video to draw the line(s). 
 
-With SSH connection, follow this steps:
+With SSH connection, follow these steps:
 
 1- Add argument to the command line with ssh
 
