@@ -26,6 +26,7 @@ int main(int argc, char** argv) {
     int infer_rate;
     string output_type;
     int count_line;
+    string ssh;
 
     // Variables for video processing
     vector<string> imagePathList;
@@ -61,12 +62,15 @@ int main(int argc, char** argv) {
                 abort();
             }
         }
+        ssh= stoi(argv[7]);
     } else if (input_type == "camera") {
         assert(argc == 6);
         infer_rate = stoi(argv[3]);
         output_type = argv[4];
         count_line = stoi(argv[5]);
+        ssh = stoi(argv[6]);
         isCamera = true;
+
     }
 
     // Initialize OpenCV video capture and video writer
@@ -144,21 +148,31 @@ int main(int argc, char** argv) {
     // Create a tracker object for object tracking
     BYTETracker tracker(fps, 30);
 
-    // Create a window and set the mouse callback to get user input
-    namedWindow("Get Crossing Line", WINDOW_NORMAL);
-    setMouseCallback("Get Crossing Line", onMouse, &count_line);
+    if (ssh == "ssh"){
 
-    // Get the first frame and display it to get user input
-    Mat frame;
-    cap.read(frame);
-    imshow("Get Crossing Line", frame);
-
-    while (true) {
-        if (clickCount == count_line * 2)
-            break;
-        if (waitKey(10) == 27) // Wait for the Escape key (ASCII value 27) to be pressed
-            break;
+        Mat frame;
+        cap.read(frame);
+        imwrite("./frame_for_line.jpg", frame);
     }
+    else {
+        // Create a window and set the mouse callback to get user input
+        namedWindow("Get Crossing Line", WINDOW_NORMAL);
+        setMouseCallback("Get Crossing Line", onMouse, &count_line);
+
+        // Get the first frame and display it to get user input
+        Mat frame;
+        cap.read(frame);
+        imshow("Get Crossing Line", frame);
+
+        while (true) {
+            if (clickCount == count_line * 2)
+                break;
+            if (waitKey(10) == 27) // Wait for the Escape key (ASCII value 27) to be pressed
+                break;
+        }
+    }
+
+    
     
 
     // Destroy the window after getting user input
