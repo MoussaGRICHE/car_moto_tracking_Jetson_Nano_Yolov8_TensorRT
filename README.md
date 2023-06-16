@@ -164,15 +164,15 @@ With SSH connection, follow these steps:
 	
 2- The first frame of the video will be saved
 
-3- Copie this frame to you PC via SSH
+3- Copie this frame to you PC via SSH (in PC's terminal):
 
-	comand
+	scp jetson_name@jetson_server:path_to_frame_in_jetson/frame_for_line.jpg  ${root}/utils/frame_for_line.jpg
 	
 4- On your PC, launch the python script draw_line.py to draw the line(s) and get the points.
 
 	python3 ${root}/utils/draw_line.py
 	
-5- Give the points value to Jetson in the terminal.
+5- Give the points value to Jetson in the Jetson's terminal.
 	
 
 	
