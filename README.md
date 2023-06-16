@@ -24,9 +24,10 @@ Then clone your own repository on your PC:
 
 ### 1-3- Create a folder for the dataset:
 
-	mkdir data
-	cd data
-	mkdir Train & validation
+	mkdir datasets
+	cd datasets
+	mkdir Train 
+	mkdir Validation
 
 ### 1-4- Copy your dataset:
 Copy your train dataset (images + .txt files) into data/Train
@@ -42,14 +43,14 @@ If you have more than car and motorcycle classes, modify the data.yaml to add th
 
 ### 1-5- Train the yolov8n model:
 
-	python train.py
+	python main.py
 
 When the training is finished, your custom yolov8n model will be saved in 
 ${root}/train/run/train/weights/best.pt
 
 ### 1-6- Push your custom model to GitHub:
 
-	git add run/train/weights/best.onnx
+	git add runs/detect/train/weights/best.onnx
 	git commit -am "Add the trained yolov8n model"
 	git push
 
@@ -63,7 +64,7 @@ ${root}/train/run/train/weights/best.pt
 ### 2-2- Export the engine from the onnx model
 
 	/usr/src/tensorrt/bin/trtexec \
-	--onnx= train/run/train/weights/best.onnx \
+	--onnx= train/runs/detect/train/weights/best.onnx \
 	--saveEngine=best.engine
 
 After executing the above command, you will get an engine named best.engine .

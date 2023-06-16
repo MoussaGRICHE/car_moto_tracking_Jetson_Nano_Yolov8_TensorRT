@@ -9,7 +9,7 @@ def train_yolo(yolo_model, epochs):
     model = YOLO(yolo_model)
 
     # train the model
-    model.train(data="./data.yaml", epochs=epochs, batch=6) 
+    model.train(data= './data.yaml', epochs=epochs, batch=6) 
 
 
 def export_onnx(trained_yolo_model, format):
@@ -23,9 +23,9 @@ def export_onnx(trained_yolo_model, format):
 
 if __name__ == '__main__':
     # lunch the model training
-    train_yolo("yolov8n.pt", 300)
+    train_yolo("yolov8n.pt", 2)
 
     # export the trained model to onnx
-    export_onnx("./train/runs/detect/train/weights/best.pt", onnx)
+    export_onnx("./runs/detect/train/weights/best.pt", "onnx")
 
 
