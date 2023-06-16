@@ -62,13 +62,13 @@ int main(int argc, char** argv) {
                 abort();
             }
         }
-        ssh= stoi(argv[7]);
+        ssh= argv[7];
     } else if (input_type == "camera") {
         assert(argc == 6);
         infer_rate = stoi(argv[3]);
         output_type = argv[4];
         count_line = stoi(argv[5]);
-        ssh = stoi(argv[6]);
+        ssh = argv[6];
         isCamera = true;
 
     }
@@ -153,6 +153,20 @@ int main(int argc, char** argv) {
         Mat frame;
         cap.read(frame);
         imwrite("./frame_for_line.jpg", frame);
+
+        for (int i = 0; i < count_line; ++i) {
+        std::cout << "Line " << i + 1 << ":" << std::endl;
+        std::cout << "Enter the start point x-coordinate: ";
+        std::cin >> crossingLine[i].x;
+        std::cout << "Enter the start point y-coordinate: ";
+        std::cin >> crossingLine[i].y;
+        std::cout << "Enter the end point x-coordinate: ";
+        std::cin >> crossingLine[i + 1].x;
+        std::cout << "Enter the end point y-coordinate: ";
+        std::cin >> crossingLine[i + 1].y;
+    }
+
+
     }
     else {
         // Create a window and set the mouse callback to get user input
