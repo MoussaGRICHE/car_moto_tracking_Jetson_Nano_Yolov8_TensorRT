@@ -39,6 +39,9 @@ void onMouse(int event, int x, int y, int flags, void* userdata) {
             crossingLine[clickCount].y = y;
             std::cout << "Click " << clickCount + 1 << ": (" << crossingLine[clickCount].x << ", " << crossingLine[clickCount].y << ")\n";
             clickCount++;
+            // Destroy the window after getting user input
+            if (clickCount == 2)
+            destroyWindow("Get Crossing Line");
         }
     }
 }
