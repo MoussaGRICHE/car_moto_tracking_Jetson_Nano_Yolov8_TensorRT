@@ -25,7 +25,6 @@ int main(int argc, char** argv) {
     string input_value;
     int infer_rate;
     string output_type;
-    int count_line;
     string ssh;
 
     // Variables for video processing
@@ -47,11 +46,8 @@ int main(int argc, char** argv) {
 
     // Process based on input type
     if (input_type == "video") {
-        assert(argc == 7);
+        assert(argc == 6);
         input_value = argv[3];
-        infer_rate = stoi(argv[4]);
-        output_type = argv[5];
-        count_line = stoi(argv[6]);
         if (IsFile(input_value)) {
             string suffix = input_value.substr(input_value.find_last_of('.') + 1);
             // Check if the input video file has a supported format
@@ -62,13 +58,15 @@ int main(int argc, char** argv) {
                 abort();
             }
         }
-        ssh= argv[7];
+        infer_rate = stoi(argv[4]);
+        output_type = argv[5];
+        ssh = (argc >= 7) ? argv[6] : "";
+
     } else if (input_type == "camera") {
-        assert(argc == 6);
+        assert(argc == 5);
         infer_rate = stoi(argv[3]);
         output_type = argv[4];
-        count_line = stoi(argv[5]);
-        ssh = argv[6];
+        ssh = (argc >= 6) ? argv[5] : "";
         isCamera = true;
 
     }
@@ -153,25 +151,16 @@ int main(int argc, char** argv) {
         Mat frame;
         cap.read(frame);
         imwrite("./frame_for_line.jpg", frame);
-
-        for (int i = 0; i < count_line; ++i) {
-        std::cout << "Line " << i + 1 << ":" << std::endl;
         std::cout << "Enter the start point x-coordinate: ";
-        std::cin >> crossingLine[i].x;
+        std::cin >> crossingLine[0].x;
         std::cout << "Enter the start point y-coordinate: ";
-        std::cin >> crossingLine[i].y;
-        std::cout << "Enter the end point x-coordinate: ";
-        std::cin >> crossingLine[i + 1].x;
-        std::cout << "Enter the end point y-coordinate: ";
-        std::cin >> crossingLine[i + 1].y;
+        std::cin >> crossingLine[0].y;
     }
 
-
-    }
     else {
         // Create a window and set the mouse callback to get user input
         namedWindow("Get Crossing Line", WINDOW_NORMAL);
-        setMouseCallback("Get Crossing Line", onMouse, &count_line);
+        setMouseCallback("Get Crossing Line", onMouse);
 
         // Get the first frame and display it to get user input
         Mat frame;
@@ -179,7 +168,7 @@ int main(int argc, char** argv) {
         imshow("Get Crossing Line", frame);
 
         while (true) {
-            if (clickCount == count_line * 2)
+            if (clickCount == 2)
                 break;
             if (waitKey(10) == 27) // Wait for the Escape key (ASCII value 27) to be pressed
                 break;
@@ -232,23 +221,22 @@ int main(int argc, char** argv) {
                                                         CLASS_NAMES, 
                                                         classCounts_IN, 
                                                         classCounts_OUT, 
-                                                        crossedTrackerIds,
-                                                        count_line);
+                                                        crossedTrackerIds
+                                                        );
 
             // Draw the line
             Scalar lineColor = blnAtLeastOneObjCrossedTheLine ? Scalar(0.0, 200.0, 0.0) : Scalar(0.0, 0.0, 255.0);
-            if (count_line==1){
-                line(image, crossingLine[0], crossingLine[1], lineColor, 2);
-            }
-            if (count_line==2){
-                line(image, crossingLine[0], crossingLine[1], lineColor, 2);
-                line(image, crossingLine[2], crossingLine[3], lineColor, 2);
-            }
+
+            line(image, crossingLine[0], crossingLine[1], lineColor, 2);
+
 
             
 
-            // Draw bounding boxes, labels, tracker_id, and counting results on the image
-            yolov8->draw_objects(image, res, track_objs, CLASS_NAMES, COLORS, classCounts_IN, classCounts_OUT, count_line);
+            // Draw bounding boxes, labels, tracker_id on the image
+            yolov8->draw_objects(image, res, track_objs, CLASS_NAMES, COLORS);
+
+             // Draw the counting results on the image
+            yolov8->drawCountingResults(image, res, CLASS_NAMES, classCounts_IN, classCounts_OUT); // "IN" counting results
 
             auto end = chrono::system_clock::now();
             double tc = chrono::duration_cast<chrono::microseconds>(end - start).count() / 1000.0;

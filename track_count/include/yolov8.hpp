@@ -34,10 +34,14 @@ public:
 		cv::Mat& res,
 		const std::vector<Object>& objs,
 		const std::vector<std::string>& CLASS_NAMES,
-		const std::vector<std::vector<unsigned int>>& COLORS,
+		const std::vector<std::vector<unsigned int>>& COLORS
+	);
+	void drawCountingResults(
+		const cv::Mat& image, 
+		cv::Mat& res,  
+		const std::vector<std::string>& classNames, 
 		std::map<std::string, int>& classCounts_IN,
-		std::map<std::string, int>& classCounts_OUT,
-		int count_line
+		std::map<std::string, int>& classCounts_OUT 
 	);
 	static void draw_fps(
 		const cv::Mat& image,
@@ -379,8 +383,7 @@ bool checkIfObjsCrossedTheLine(
     const std::vector<std::string>& DISPLAYED_CLASS_NAMES,
     std::map<std::string, int>& classCounts_IN, 
     std::map<std::string, int>& classCounts_OUT, 
-    std::vector<int>& crossedTrackerIds,
-    int count_line
+    std::vector<int>& crossedTrackerIds
 ) {
     bool atLeastOneObjCrossedTheLine = false;
 
@@ -388,19 +391,18 @@ bool checkIfObjsCrossedTheLine(
         if (std::find(DISPLAYED_CLASS_NAMES.begin(), DISPLAYED_CLASS_NAMES.end(), CLASS_NAMES[obj.label]) != DISPLAYED_CLASS_NAMES.end()) {
             cv::Point center(obj.rect.x + obj.rect.width / 2, obj.rect.y + obj.rect.height / 2);
 
-            // Check if the object crosses the first line based on the calculated slope1
+            // Check if the object crosses the line based on the calculated slope1
 			if (hasPassedLine(line[0], line[1], center) && std::find(crossedTrackerIds.begin(), crossedTrackerIds.end(), obj.tracker_id) == crossedTrackerIds.end()) {
 				classCounts_IN[CLASS_NAMES[obj.label]]++;
 				atLeastOneObjCrossedTheLine = true;
 				crossedTrackerIds.push_back(obj.tracker_id);
 			}
-			if (count_line == 2) {
-				// Check if the object crosses the first line based on the calculated slope1
-				if (hasPassedLine(line[2], line[3], center) && std::find(crossedTrackerIds.begin(), crossedTrackerIds.end(), obj.tracker_id) == crossedTrackerIds.end()) {
-					classCounts_OUT[CLASS_NAMES[obj.label]]++;
-					atLeastOneObjCrossedTheLine = true;
-					crossedTrackerIds.push_back(obj.tracker_id);
-				}
+
+			// Check if the object crosses the line in the opposite direction
+			if (hasPassedLine(line[1], line[0], center) && std::find(crossedTrackerIds.begin(), crossedTrackerIds.end(), obj.tracker_id) == crossedTrackerIds.end()) {
+				classCounts_OUT[CLASS_NAMES[obj.label]]++;
+				atLeastOneObjCrossedTheLine = true;
+				crossedTrackerIds.push_back(obj.tracker_id);
 			}
 		}	
 	}
@@ -408,16 +410,16 @@ bool checkIfObjsCrossedTheLine(
 }
 
 
+
+
+
 void YOLOv8::draw_objects(
     const cv::Mat& image,
     cv::Mat& res,
     const std::vector<Object>& objs,
     const std::vector<std::string>& CLASS_NAMES,
-    const std::vector<std::vector<unsigned int>>& COLORS,
-	std::map<std::string, int>& classCounts_IN, 
-	std::map<std::string, int>& classCounts_OUT,
-	int count_line
-)
+    const std::vector<std::vector<unsigned int>>& COLORS
+	)
 {
     res = image.clone();
     int yPos = 60;
@@ -468,42 +470,45 @@ void YOLOv8::draw_objects(
 			1
 		);
     }
+}
 
-	// Counting results display
-	int cadreWidth = 200;
-	int cadreHeight = CLASS_NAMES.size() * 30 + 20;
+
+void YOLOv8::drawCountingResults(
+	const cv::Mat& image, 
+	cv::Mat& res, 
+	const std::vector<std::string>& classNames, 
+	std::map<std::string, int>& classCounts_IN, 
+    std::map<std::string, int>& classCounts_OUT
+	)
+{
+    int cadreWidth = 200;
+	int cadreHeight = CLASS_NAMES.size() * 30 + 50;
 	int xPos = 10; 
 	int cadreYPos = 10; 
 
-	rectangle(res, Point(xPos, cadreYPos), Point(xPos + cadreWidth, cadreYPos + cadreHeight), Scalar(0, 0, 255), -1); // Draw the cadre
+    auto drawCadre = [&](int xPos, const Scalar& color, const std::string& title, const std::map<std::string, int>& classCounts) {
+        rectangle(res, Point(xPos, cadreYPos), Point(xPos + cadreWidth, cadreYPos + cadreHeight), color, -1); // Draw the cadre
+        int textYPos = cadreYPos + 30;
+        cv::putText(res, title, Point(xPos + 10, textYPos), cv::FONT_HERSHEY_SIMPLEX, 0.6, cv::Scalar(255, 255, 255), 2, cv::LINE_AA);
+        textYPos += 30;
+        for (const auto& className : CLASS_NAMES) {
+            putText(res, className + ": " + std::to_string(classCounts.at(className)), Point(xPos + 20, textYPos), FONT_HERSHEY_SIMPLEX, 0.6, Scalar(255, 255, 255), 2, LINE_AA);
+            textYPos += 30;
+        }
+    };
 
-	int textYPos = cadreYPos + 30; 
-
-	for (const auto& className : CLASS_NAMES) {
-		putText(res, className + ": " + std::to_string(classCounts_IN[className]), Point(xPos + 10, textYPos), FONT_HERSHEY_SIMPLEX, 0.6, Scalar(255, 255, 255), 2, LINE_AA);
-		textYPos += 30;
-	}
-
-	if (count_line == 2) {
-		xPos = res.cols - cadreWidth - 10; 
-		rectangle(res, Point(xPos, cadreYPos), Point(xPos + cadreWidth, cadreYPos + cadreHeight), Scalar(0, 255, 0), -1); // Draw the second cadre
-
-		textYPos = cadreYPos + 30; 
-
-		for (const auto& className : CLASS_NAMES) {
-			putText(res, className + ": " + std::to_string(classCounts_OUT[className]), Point(xPos + 10, textYPos), FONT_HERSHEY_SIMPLEX, 0.6, Scalar(255, 255, 255), 2, LINE_AA);
-			textYPos += 30;
-		}
-	}
-
+    drawCadre(xPos, Scalar(0, 255, 0), "IN Counting:", classCounts_IN);
+    xPos = res.cols - cadreWidth - 10;
+    drawCadre(xPos, Scalar(0, 0, 255), "OUT Counting:", classCounts_OUT);
 }
+
 
 void YOLOv8::draw_fps(const cv::Mat& image, cv::Mat& res, double infer_fps, int infer_rate)
 {
     // Draw fpsCadre (yellow box)
-    int fpsCadreWidth = 200;
+    int fpsCadreWidth = 210;
     int fpsCadreHeight = 70;
-    int fpsCadreXPos = (res.cols - fpsCadreWidth) / 2;
+    int fpsCadreXPos = (res.cols - fpsCadreWidth) / 3;
     int fpsCadreYPos = 10;
 
     rectangle(res, cv::Point(fpsCadreXPos, fpsCadreYPos), cv::Point(fpsCadreXPos + fpsCadreWidth, fpsCadreYPos + fpsCadreHeight), cv::Scalar(0, 255, 255), -1); // Draw the fpsCadre
@@ -515,15 +520,15 @@ void YOLOv8::draw_fps(const cv::Mat& image, cv::Mat& res, double infer_fps, int 
     std::string fpsText = "FPS: " + std::to_string(static_cast<int>(infer_fps));
     std::string frameTraitText = "1/" + std::to_string(infer_rate) + " frame processed";
 
-    cv::Size fpsTextSize = cv::getTextSize(fpsText, fontFace, fontScale, thickness, nullptr);
-    int fpsTextX = (res.cols - fpsTextSize.width) / 2;
-    int fpsTextY = fpsCadreYPos + (fpsCadreHeight - fpsTextSize.height) / 2;
-    cv::putText(res, fpsText, cv::Point(fpsTextX, fpsTextY), fontFace, fontScale, cv::Scalar(255, 255, 255), thickness, cv::LINE_AA);
+    auto drawText = [&](const std::string& text, int yPos) {
+        cv::Size textSize = cv::getTextSize(text, fontFace, fontScale, thickness, nullptr);
+        int textX = (res.cols - textSize.width) / 3;
+        cv::putText(res, text, cv::Point(textX, yPos), fontFace, fontScale, cv::Scalar(255, 255, 255), thickness, cv::LINE_AA);
+        return yPos + textSize.height + 10;
+    };
 
-    cv::Size frameTraitTextSize = cv::getTextSize(frameTraitText, fontFace, fontScale, thickness, nullptr);
-    int frameTraitTextX = (res.cols - frameTraitTextSize.width) / 2;
-    int frameTraitTextY = fpsTextY + fpsTextSize.height + 10;
-    cv::putText(res, frameTraitText, cv::Point(frameTraitTextX, frameTraitTextY), fontFace, fontScale, cv::Scalar(255, 255, 255), thickness, cv::LINE_AA);
+    int yPos = drawText(fpsText, fpsCadreYPos + (fpsCadreHeight - (cv::getTextSize(fpsText + frameTraitText, fontFace, fontScale, thickness,nullptr).height)) / 2);
+    drawText(frameTraitText,yPos);
 }
 
 #endif //JETSON_DETECT_YOLOV8_HPP

@@ -33,9 +33,8 @@ int clickCount = 0;
 
 
 void onMouse(int event, int x, int y, int flags, void* userdata) {
-    int count_line = *(static_cast<int*>(userdata));
     if (event == cv::EVENT_LBUTTONUP) {
-        if (clickCount < count_line * 2) {
+        if (clickCount < 2) {
             crossingLine[clickCount].x = x;
             crossingLine[clickCount].y = y;
             std::cout << "Click " << clickCount + 1 << ": (" << crossingLine[clickCount].x << ", " << crossingLine[clickCount].y << ")\n";
@@ -44,73 +43,6 @@ void onMouse(int event, int x, int y, int flags, void* userdata) {
     }
 }
 
-std::list<double> calculateAngles(const cv::Point* crossingLine, int count_line)
-{
-    std::list<double> angles;
-
-    double deltaX1 = static_cast<double>(crossingLine[1].x - crossingLine[0].x);
-    double deltaY1 = static_cast<double>(crossingLine[1].y - crossingLine[0].y);
-
-    // Check if the line is horizontal
-    if (deltaY1 == 0)
-    {
-        if (deltaX1 >= 0)
-        {
-            angles.push_back(0.0); // Angle is 0 degrees
-        }
-        else
-        {
-            angles.push_back(180.0); // Angle is 180 degrees
-        }
-    }
-    else
-    {
-        // Calculate the first angle using atan2
-        double angle1 = std::atan2(deltaY1, deltaX1) * 180.0 / M_PI;
-
-        // Adjust the first angle to be between 0 and 360 degrees
-        if (angle1 < 0)
-        {
-            angle1 += 360.0;
-        }
-
-        angles.push_back(angle1);
-    }
-
-    if (count_line == 2)
-    {
-        double deltaX2 = static_cast<double>(crossingLine[3].x - crossingLine[2].x);
-        double deltaY2 = static_cast<double>(crossingLine[3].y - crossingLine[2].y);
-
-        // Check if the line is horizontal
-        if (deltaY2 == 0)
-        {
-            if (deltaX2 >= 0)
-            {
-                angles.push_back(0.0); // Angle is 0 degrees
-            }
-            else
-            {
-                angles.push_back(180.0); // Angle is 180 degrees
-            }
-        }
-        else
-        {
-            // Calculate the second angle using atan2
-            double angle2 = std::atan2(deltaY2, deltaX2) * 180.0 / M_PI;
-
-            // Adjust the second angle to be between 0 and 360 degrees
-            if (angle2 < 0)
-            {
-                angle2 += 360.0;
-            }
-
-            angles.push_back(angle2);
-        }
-    }
-
-    return angles;
-}
 
 bool hasPassedLine(const cv::Point& lineStart, const cv::Point& lineEnd, const cv::Point& point)
 {
