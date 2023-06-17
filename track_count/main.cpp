@@ -14,6 +14,8 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
 #include "util.h"
+#include <cstring>
+#include <unistd.h>
 
 using namespace std;
 using namespace cv;
@@ -150,11 +152,21 @@ int main(int argc, char** argv) {
 
         Mat frame;
         cap.read(frame);
-        imwrite("./frame_for_line.jpg", frame);
+        std::string filename = "frame_for_line.jpg";
+        imwrite(filename, frame);
+
+        char buffer[FILENAME_MAX];
+        if (getcwd(buffer, FILENAME_MAX)) {
+            std::cout << "Image saved to: " << buffer << "/" << filename << std::endl;
+        } else {
+            std::cerr << "Error getting current working directory: " << strerror(errno) << std::endl;
+        }
+
         std::cout << "Enter the start point x-coordinate: ";
         std::cin >> crossingLine[0].x;
         std::cout << "Enter the start point y-coordinate: ";
         std::cin >> crossingLine[0].y;
+
     }
 
     else {
