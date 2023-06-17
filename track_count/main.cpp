@@ -236,10 +236,13 @@ int main(int argc, char** argv) {
 
             line(image, crossingLine[0], crossingLine[1], lineColor, 2);
 
+
+            
+
             // Draw bounding boxes, labels, tracker_id on the image
             yolov8->draw_objects(image, res, track_objs, CLASS_NAMES, COLORS);
 
-            // Draw the counting results on the image
+             // Draw the counting results on the image
             yolov8->drawCountingResults(image, res, CLASS_NAMES, classCounts_IN, classCounts_OUT); // "IN" counting results
 
             auto end = chrono::system_clock::now();
@@ -249,6 +252,7 @@ int main(int argc, char** argv) {
 
             // Draw the FPSon the image
             yolov8->draw_fps(image, res, infer_fps, infer_rate);
+
 
             if (output_type == "save") {
                 writer.write(res);
@@ -265,23 +269,19 @@ int main(int argc, char** argv) {
             }
         }
         infer_frame_count++;
-        // Check if the user wants to stop the inference
-        if (isCamera && waitKey(1) == 'q') {
-            break;
+    }
+
+        if (output_type == "save") {
+        char buffer[FILENAME_MAX];
+        if (getcwd(buffer, FILENAME_MAX)) {
+            std::cout << "Video saved to: " << buffer << "/" << new_filename << std::endl;
+        } else {
+            std::cerr << "Error getting current working directory: " << strerror(errno) << std::endl;
         }
     }
 
-    // Release resources
-    cap.release();
-    if (output_type == "save") {
-        writer.release();
-    }
-
-    // Destroy windows
+    // Clean up resources
     destroyAllWindows();
-
-    // Delete the YOLOv8 object detector
     delete yolov8;
-
     return 0;
 }
