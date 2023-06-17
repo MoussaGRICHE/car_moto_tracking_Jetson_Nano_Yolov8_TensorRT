@@ -280,8 +280,14 @@ int main(int argc, char** argv) {
         }
     }
 
-    // Clean up resources
+    // Release camera and video resources
+    cap.release();
+
+    // Close OpenCV windows
     destroyAllWindows();
+
+    // Delete the YOLOv8 object
     delete yolov8;
+
     return 0;
 }
