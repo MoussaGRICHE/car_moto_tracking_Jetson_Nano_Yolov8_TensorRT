@@ -253,8 +253,11 @@ int main(int argc, char** argv) {
             // Draw the FPSon the image
             yolov8->draw_fps(image, res, infer_fps, infer_rate);
 
-
-            if (output_type == "save") {
+            if (ssh == "ssh"){
+                writer.write(res);
+            }
+            else {
+                if (output_type == "save") {
                 namedWindow("result", WINDOW_NORMAL | WINDOW_GUI_EXPANDED);
                 setWindowProperty("result", WND_PROP_FULLSCREEN, WINDOW_FULLSCREEN);
                 imshow("result", res);
@@ -262,18 +265,19 @@ int main(int argc, char** argv) {
                     break;
                 }
                 writer.write(res); 
-            }
-
-            if (output_type == "show") {
-                // Show the result image
-                namedWindow("result", WINDOW_NORMAL | WINDOW_GUI_EXPANDED);
-                setWindowProperty("result", WND_PROP_FULLSCREEN, WINDOW_FULLSCREEN);
-                imshow("result", res);
-                if (waitKey(10) == 'q' || waitKey(10) == 'Q') {
-                    break;
                 }
+
+                if (output_type == "show") {
+                    // Show the result image
+                    namedWindow("result", WINDOW_NORMAL | WINDOW_GUI_EXPANDED);
+                    setWindowProperty("result", WND_PROP_FULLSCREEN, WINDOW_FULLSCREEN);
+                    imshow("result", res);
+                    if (waitKey(10) == 'q' || waitKey(10) == 'Q') {
+                        break;
+                    }
+                }
+
             }
-            
         }
         infer_frame_count++;
     }
