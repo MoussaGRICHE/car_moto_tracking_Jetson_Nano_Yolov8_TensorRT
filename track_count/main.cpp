@@ -98,8 +98,8 @@ int main(int argc, char** argv) {
             size_t lastSlash = input_value.find_last_of('/');
             size_t lastDot = input_value.find_last_of('.');
             string rawname = input_value.substr(lastSlash + 1, lastDot - lastSlash - 1);
-            new_filename = rawname + "_detection_" + str + ".mp4";
-            writer.open(new_filename, VideoWriter::fourcc('m', 'p', '4', 'v'), 30, size);
+            new_filename = rawname + "_detection_" + str + ".avi";
+            writer.open(new_filename, VideoWriter::fourcc('X', 'V', 'I', 'D'), 30, size);
         }
     } else {
         // Settings for camera input
@@ -132,8 +132,8 @@ int main(int argc, char** argv) {
             auto str = oss.str();
             size_t lastindex = input_value.find_last_of(".");
             string rawname = input_value.substr(0, lastindex);
-            new_filename = "Camera_detection_" + str + ".mp4";
-            writer.open(new_filename, VideoWriter::fourcc('m', 'p', '4', 'v'), 30, size);
+            new_filename = "Camera_detection_" + str + ".avi";
+            writer.open(new_filename, VideoWriter::fourcc('X', 'V', 'I', 'D'), 30, size);
         }
     }
 
@@ -167,6 +167,10 @@ int main(int argc, char** argv) {
         std::cin >> crossingLine[0].x;
         std::cout << "Enter the start point y-coordinate: ";
         std::cin >> crossingLine[0].y;
+        std::cout << "Enter the end point x-coordinate: ";
+        std::cin >> crossingLine[1].x;
+        std::cout << "Enter the end point y-coordinate: ";
+        std::cin >> crossingLine[1].y;
 
     }
 
@@ -295,6 +299,8 @@ int main(int argc, char** argv) {
 
     // Release camera and video resources
     cap.release();
+
+    writer.release();
 
     // Close OpenCV windows
     destroyAllWindows();
