@@ -164,11 +164,11 @@ With SSH connection, follow these steps:
 
 	for video:
 
-	${root}/track_count/build/yolov8_track_count ${root}/best.engine video ${root}/src/test.mp4 1 show 1 ssh
+	${root}/track_count/build/yolov8_track_count ${root}/best.engine video ${root}/src/test.mp4 1 show ssh
 	
 	for camera
 	
-	${root}/track_count/build/yolov8_track_count ${root}/best.engine camera 1 show 1 ssh
+	${root}/track_count/build/yolov8_track_count ${root}/best.engine camera 1 show ssh
 	
 2- The first frame of the video will be saved
 
