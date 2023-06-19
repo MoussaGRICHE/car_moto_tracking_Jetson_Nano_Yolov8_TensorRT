@@ -28,7 +28,7 @@ def export_onnx(trained_yolo_model, format):
 
 if __name__ == '__main__':
     # launch the model training
-    train_yolo("yolov8n.pt", 2)
+    train_yolo("yolov8n.pt", 300)
 
     # export the trained model to ONNX
     export_onnx("./runs/detect/train/weights/best.pt", "onnx")
