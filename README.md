@@ -183,4 +183,12 @@ With SSH connection, follow these steps:
 5- Give the points value to Jetson in the Jetson's terminal.
 	
 
-	
+## Contributing:
+
+Contributions are welcome! Please feel free to submit pull requests to improve the project.
+
+## License:
+
+This project is licensed under the MIT License - see the LICENSE.md file for details.
+
+
