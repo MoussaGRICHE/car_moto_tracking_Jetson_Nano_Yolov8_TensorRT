@@ -122,7 +122,7 @@ Before displaying the processed video, the first frame of the video will be disp
 
 for video:
 
-	${root}/track_count/build/yolov8_track_count ${root}/best.engine video ${root}/src/test.mp4 1 show 1
+	${root}/track_count/build/yolov8_track_count ${root}/best.engine video ${root}/src/test.mp4 1 show
 
 #### Description of all arguments
 
@@ -132,11 +132,10 @@ for video:
 - 4rth argument: path to video file
 - 5th argument : if inference capacity of the Jetson is more then 30 fps, put 1, otherwise put 2, 3, 4 depending on the inference capacity of the Jetson
 - 6th argument : show or save
-- 7th argument : 1 if you want to count into one line (In or Out) or 2 for 2 lines (In and Out)
 
 for camera:
 
-	${root}/track_count/build/yolov8_track_count ${root}/best.engine camera 1 show 1
+	${root}/track_count/build/yolov8_track_count ${root}/best.engine camera 1 show
 
 #### Description of all arguments
 
@@ -145,7 +144,6 @@ for camera:
 - 3rd argument : camera for using embedded camera
 - 4rth argument: if inference capacity of the Jetson is more then 30 fps, put 1, otherwise put 2, 3, 4 depending on the inference capacity of the Jetson
 - 5th argument : show or save
-- 6th argument : 1 if you want to count into one line (In or Out) or 2 for 2 lines (In and Out)
 
 #### Remark:
 If you are using the Jetson with SSH, you can not see the first frame of the video to draw the line(s). 
