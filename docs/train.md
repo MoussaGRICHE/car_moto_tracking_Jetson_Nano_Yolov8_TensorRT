@@ -6,26 +6,10 @@ This project uses a camera embedded on the Jetson Nano to detect and track cars 
 
 ## Table of Contents:
 
-    Prerequisites
-    Installation
     Data Preparation
     Model Development
     Testing and Evaluation
-    Deployment
-    Contributing
-    License
-
-## Prerequisites:
-
-Before starting the project, you need to have the following prerequisites:
-
-    NVIDIA Jetson Nano Developer Kit
-    USB camera
-    CUDA enabled JetPack installed on Jetson Nano
-    Python 3.6 or above
-    TensorFlow or PyTorch framework installed
-    NumPy, OpenCV, and other required libraries installed
-    
+ 
 
 ## Data Preparation:
 
@@ -140,5 +124,5 @@ Evaluate the performance of your model on a validation dataset (images unseen by
 
 For our model, the metrics of the trained YOLOv8n on Global_dataset are shown in the followin picture.
 
-<img width=800 src="./assets/results.png" alt="results">   
+
     
