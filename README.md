@@ -3,6 +3,10 @@ Detect, track and count cars and motorcycles using yolov8 and TensorRT on Jetson
 
 https://github.com/MoussaGRICHE/car_moto_tracking_Jetson_Nano_Yolov8_TensorRT/assets/103992437/f5d249c0-d31b-47f7-b733-c51bed8e4dfb
 
+[Uploading video_presentation (1) (1) (1).avi…]()
+
+
+
 To deploy this work on a Jetson Nano, you should do it in two steps:
 
 ## 1- On your PC:
