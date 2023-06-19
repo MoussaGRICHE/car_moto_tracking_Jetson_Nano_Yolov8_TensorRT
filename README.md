@@ -1,9 +1,11 @@
 # car_moto_tracking_Jetson_Nano_Yolov8_TensorRT
 Detect, track and count cars and motorcycles using yolov8 and TensorRT on Jetson Nano
 
-https://github.com/MoussaGRICHE/car_moto_tracking_Jetson_Nano_Yolov8_TensorRT/assets/103992437/f5d249c0-d31b-47f7-b733-c51bed8e4dfb
 
-[Uploading video_presentation (1) (1) (1).avi…]()
+https://github.com/MoussaGRICHE/car_moto_tracking_Jetson_Nano_Yolov8_TensorRT/assets/103992437/fab1f0a6-9349-45bd-8e44-e923c8657b2a
+
+
+
 
 
 
