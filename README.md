@@ -6,6 +6,10 @@ https://github.com/MoussaGRICHE/car_moto_tracking_Jetson_Nano_Yolov8_TensorRT/as
 
 
 
+https://github.com/MoussaGRICHE/car_moto_tracking_Jetson_Nano_Yolov8_TensorRT/assets/103992437/9879f396-1ac9-4389-b60a-42def786673c
+
+
+
 
 
 
