@@ -74,7 +74,7 @@ ${root}/train/runs/detect/train/weights/best.pt
 ### 2-2- Export the engine from the onnx model
 
 	/usr/src/tensorrt/bin/trtexec \
-	--onnx= train/runs/detect/train/weights/best.onnx \
+	--onnx=train/runs/detect/train/weights/best.onnx \
 	--saveEngine=best.engine
 
 After executing the above command, you will get an engine named best.engine .

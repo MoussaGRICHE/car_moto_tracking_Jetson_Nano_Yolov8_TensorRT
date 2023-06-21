@@ -54,8 +54,17 @@ bool hasPassedLine(const cv::Point& lineStart, const cv::Point& lineEnd, const c
 
     int crossProduct = lineVec.x * pointVec.y - lineVec.y * pointVec.x;
 
-    // If the cross product is positive and the point is within the line segment, it has passed the line
-    return crossProduct > 0 && point.x >= std::min(lineStart.x, lineEnd.x) && point.x <= std::max(lineStart.x, lineEnd.x) && point.y >= std::min(lineStart.y, lineEnd.y) && point.y <= std::max(lineStart.y, lineEnd.y);
+    bool in_line = false;
+    if (point.x >= std::min(lineStart.x, lineEnd.x) &&
+        point.x <= std::max(lineStart.x, lineEnd.x) &&
+        point.y >= std::min(lineStart.y, lineEnd.y) &&
+        point.y <= std::max(lineStart.y, lineEnd.y))
+    {
+        in_line = true;
+    }
+
+    // If the cross product is non-zero and the point is within the line segment, it has passed the line
+    return crossProduct != 0 && in_line;
 }
 
 
