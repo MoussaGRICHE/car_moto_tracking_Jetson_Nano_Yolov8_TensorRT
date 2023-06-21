@@ -49,18 +49,13 @@ void onMouse(int event, int x, int y, int flags, void* userdata) {
 
 bool hasPassedLine(const cv::Point& lineStart, const cv::Point& lineEnd, const cv::Point& point)
 {
-    int crossProduct = calculateCrossProduct(lineStart, lineEnd, point);
-
-    // If the cross product is positive and the point is within the line segment, it has passed the line
-    return crossProduct > 0 && point.x >= std::min(lineStart.x, lineEnd.x) && point.x <= std::max(lineStart.x, lineEnd.x) && point.y >= std::min(lineStart.y, lineEnd.y) && point.y <= std::max(lineStart.y, lineEnd.y);
-}
-
-int calculateCrossProduct(const cv::Point& lineStart, const cv::Point& lineEnd, const cv::Point& point)
-{
     cv::Point lineVec(lineEnd.x - lineStart.x, lineEnd.y - lineStart.y);
     cv::Point pointVec(point.x - lineStart.x, point.y - lineStart.y);
 
-    return lineVec.x * pointVec.y - lineVec.y * pointVec.x;
+    int crossProduct = lineVec.x * pointVec.y - lineVec.y * pointVec.x;
+    
+    // If the cross product is positive and the point is within the line segment, it has passed the line
+    return crossProduct > 0 && point.x >= std::min(lineStart.x, lineEnd.x) && point.x <= std::max(lineStart.x, lineEnd.x) && point.y >= std::min(lineStart.y, lineEnd.y) && point.y <= std::max(lineStart.y, lineEnd.y);
 }
 
 

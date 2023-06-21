@@ -377,12 +377,12 @@ void YOLOv8::postprocess(std::vector<Object>& objs)
 }
 
 bool checkIfObjsCrossedTheLine(
-    const std::vector<Object>& objs,
+    const std::vector<Object>& objs, 
     const cv::Point* line,
     const std::vector<std::string>& CLASS_NAMES,
     const std::vector<std::string>& DISPLAYED_CLASS_NAMES,
-    std::map<std::string, int>& classCounts_IN,
-    std::map<std::string, int>& classCounts_OUT,
+    std::map<std::string, int>& classCounts_IN, 
+    std::map<std::string, int>& classCounts_OUT, 
     std::vector<int>& crossedTrackerIds
 ) {
     bool atLeastOneObjCrossedTheLine = false;
@@ -390,20 +390,23 @@ bool checkIfObjsCrossedTheLine(
     for (auto& obj : objs) {
         if (std::find(DISPLAYED_CLASS_NAMES.begin(), DISPLAYED_CLASS_NAMES.end(), CLASS_NAMES[obj.label]) != DISPLAYED_CLASS_NAMES.end()) {
             cv::Point center(obj.rect.x + obj.rect.width / 2, obj.rect.y + obj.rect.height / 2);
-
+			
             // Check if the object crosses the line based on the calculated slope1
-            if (hasPassedLine(line[0], line[1], center) && std::find(crossedTrackerIds.begin(), crossedTrackerIds.end(), obj.tracker_id) == crossedTrackerIds.end()) {
-                if (calculateCrossProduct(line[0], line[1], center) > 0) {
-                    classCounts_IN[CLASS_NAMES[obj.label]]++;
-                } else {
-                    classCounts_OUT[CLASS_NAMES[obj.label]]++;
-                }
-                atLeastOneObjCrossedTheLine = true;
-                crossedTrackerIds.push_back(obj.tracker_id);
-            }
-        }
-    }
-    return atLeastOneObjCrossedTheLine;
+			if (hasPassedLine(line[0], line[1], center) && std::find(crossedTrackerIds.begin(), crossedTrackerIds.end(), obj.tracker_id) == crossedTrackerIds.end()) {
+				classCounts_IN[CLASS_NAMES[obj.label]]++;
+				atLeastOneObjCrossedTheLine = true;
+				crossedTrackerIds.push_back(obj.tracker_id);
+			}
+
+			// Check if the object crosses the line in the opposite direction
+			if (hasPassedLine(line[1], line[0], center) && std::find(crossedTrackerIds.begin(), crossedTrackerIds.end(), obj.tracker_id) == crossedTrackerIds.end()) {
+				classCounts_OUT[CLASS_NAMES[obj.label]]++;
+				atLeastOneObjCrossedTheLine = true;
+				crossedTrackerIds.push_back(obj.tracker_id);
+			}
+		}	
+	}
+	return atLeastOneObjCrossedTheLine;
 }
 
 
