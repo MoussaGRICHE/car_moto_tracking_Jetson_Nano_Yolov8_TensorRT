@@ -59,6 +59,4 @@ bool hasPassedLine(const cv::Point& lineStart, const cv::Point& lineEnd, const c
 }
 
 
-
-
 #endif // UTIL_H

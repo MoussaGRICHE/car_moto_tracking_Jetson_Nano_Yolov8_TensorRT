@@ -32,6 +32,4 @@
 *.app
 yolov8n_TRT.engine
 test_detection_2023-06-20_10-35-58.avi
-test.mp4
-test_1.mp4
-test_2.mp4
+
