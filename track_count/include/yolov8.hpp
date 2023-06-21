@@ -391,19 +391,13 @@ bool checkIfObjsCrossedTheLine(
         if (std::find(DISPLAYED_CLASS_NAMES.begin(), DISPLAYED_CLASS_NAMES.end(), CLASS_NAMES[obj.label]) != DISPLAYED_CLASS_NAMES.end()) {
             cv::Point center(obj.rect.x + obj.rect.width / 2, obj.rect.y + obj.rect.height / 2);
 
-            bool in_line = hasPassedLine(line[0], line[1], center);
-            int crossProduct = in_line ? hasPassedLine(line[0], line[1], center) : 0;
-
-            // Check if the object crosses the line based on the calculated cross product
-            if (crossProduct > 0 && in_line && std::find(crossedTrackerIds.begin(), crossedTrackerIds.end(), obj.tracker_id) == crossedTrackerIds.end()) {
-                classCounts_IN[CLASS_NAMES[obj.label]]++;
-                atLeastOneObjCrossedTheLine = true;
-                crossedTrackerIds.push_back(obj.tracker_id);
-            }
-
-            // Check if the object crosses the line in the opposite direction
-            if (crossProduct < 0 && in_line && std::find(crossedTrackerIds.begin(), crossedTrackerIds.end(), obj.tracker_id) == crossedTrackerIds.end()) {
-                classCounts_OUT[CLASS_NAMES[obj.label]]++;
+            // Check if the object crosses the line based on the calculated slope1
+            if (hasPassedLine(line[0], line[1], center) && std::find(crossedTrackerIds.begin(), crossedTrackerIds.end(), obj.tracker_id) == crossedTrackerIds.end()) {
+                if (calculateCrossProduct(line[0], line[1], center) > 0) {
+                    classCounts_IN[CLASS_NAMES[obj.label]]++;
+                } else {
+                    classCounts_OUT[CLASS_NAMES[obj.label]]++;
+                }
                 atLeastOneObjCrossedTheLine = true;
                 crossedTrackerIds.push_back(obj.tracker_id);
             }
