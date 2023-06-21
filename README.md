@@ -156,7 +156,7 @@ for camera:
 - 5th argument : show or save
 
 #### Remark:
-If you are using the Jetson with SSH, you can not see the first frame of the video to draw the line(s). 
+If you are using the Jetson with SSH, you can not see the first frame of the video to draw the line. 
 
 With SSH connection, follow these steps:
 
@@ -176,7 +176,7 @@ With SSH connection, follow these steps:
 
 	scp jetson_name@jetson_server:path_to_frame_in_jetson/frame_for_line.jpg  ${root}/utils/frame_for_line.jpg
 	
-4- On your PC, launch the python script draw_line.py to draw the line(s) and get the points.
+4- On your PC, launch the python script draw_line.py to draw the line and get the points.
 
 	python3 ${root}/utils/draw_line.py
 	
