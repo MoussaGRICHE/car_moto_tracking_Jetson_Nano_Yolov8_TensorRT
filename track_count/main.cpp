@@ -114,7 +114,7 @@ int main(int argc, char** argv) {
 
         // Generate the GStreamer pipeline string
 
-        pipeline = gstreamer_pipeline(capture_width, capture_height, display_width, display_height, framerate, flip_method, ssh);         
+        pipeline = gstreamer_pipeline(capture_width, capture_height, display_width, display_height, framerate, flip_method);         
 
         cout << "Using pipeline: \n\t" << pipeline << "\n";
 
