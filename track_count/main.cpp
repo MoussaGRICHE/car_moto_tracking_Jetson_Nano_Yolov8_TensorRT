@@ -113,13 +113,9 @@ int main(int argc, char** argv) {
 
 
         // Generate the GStreamer pipeline string
-        if (ssh == "ssh"){
-            pipeline = "nvarguscamerasrc ! nvoverlaysink";
-        }
 
-        else{
-            pipeline = gstreamer_pipeline(capture_width, capture_height, display_width, display_height, framerate, flip_method);         
-        }
+        pipeline = gstreamer_pipeline(capture_width, capture_height, display_width, display_height, framerate, flip_method, ssh);         
+
         cout << "Using pipeline: \n\t" << pipeline << "\n";
 
         // Open the camera using the GStreamer pipeline
