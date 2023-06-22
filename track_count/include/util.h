@@ -22,8 +22,9 @@ const std::vector<std::string> DISPALYED_CLASS_NAMES = {
 // Function to generate the GStreamer pipeline string
 std::string gstreamer_pipeline (int capture_width, int capture_height, int display_width, int display_height, int framerate, int flip_method, string ssh) {
     if (ssh == "ssh"){
-            return "nvarguscamerasrc ! 'video/x-raw(memory:NVMM), width=(int)" + std::to_string(capture_width) + ", height=(int)" +
-           std::to_string(capture_height) + ", framerate=(fraction)" + std::to_string(framerate) + "/1' ! nvoverlaysink";
+        return "nvarguscamerasrc ! video/x-raw(memory:NVMM), width=(int)" + std::to_string(capture_width) + ", height=(int)" +
+           std::to_string(capture_height) + ", framerate=(fraction)" + std::to_string(framerate) +
+           "/1 ! nvvidconv ! video/x-raw, , format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink";
         }
 
     else{

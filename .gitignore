@@ -33,3 +33,4 @@
 yolov8n_TRT.engine
 test_detection_2023-06-20_10-35-58.avi
 
+track_count/build
