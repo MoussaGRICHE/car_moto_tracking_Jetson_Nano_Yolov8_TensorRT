@@ -28,6 +28,7 @@ int main(int argc, char** argv) {
     int infer_rate;
     string output_type;
     string ssh;
+    string pipeline;
 
     // Variables for video processing
     vector<string> imagePathList;
@@ -110,8 +111,15 @@ int main(int argc, char** argv) {
         int framerate = 30;
         int flip_method = 2;
 
+
         // Generate the GStreamer pipeline string
-        string pipeline = gstreamer_pipeline(capture_width, capture_height, display_width, display_height, framerate, flip_method);
+        if (ssh == "ssh"){
+            pipeline = "nvarguscamerasrc ! nvoverlaysink";
+        }
+
+        else{
+            pipeline = gstreamer_pipeline(capture_width, capture_height, display_width, display_height, framerate, flip_method);         
+        }
         cout << "Using pipeline: \n\t" << pipeline << "\n";
 
         // Open the camera using the GStreamer pipeline
