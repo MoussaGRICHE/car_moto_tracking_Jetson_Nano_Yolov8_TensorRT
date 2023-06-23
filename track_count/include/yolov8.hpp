@@ -390,7 +390,7 @@ bool checkIfObjsCrossedTheLine(
     for (auto& obj : objs) {
         if (std::find(DISPLAYED_CLASS_NAMES.begin(), DISPLAYED_CLASS_NAMES.end(), CLASS_NAMES[obj.label]) != DISPLAYED_CLASS_NAMES.end()) {
             cv::Point center(obj.rect.x + obj.rect.width / 2, obj.rect.y + obj.rect.height / 2);
-
+			
             // Check if the object crosses the line based on the calculated slope1
 			if (hasPassedLine(line[0], line[1], center) && std::find(crossedTrackerIds.begin(), crossedTrackerIds.end(), obj.tracker_id) == crossedTrackerIds.end()) {
 				classCounts_IN[CLASS_NAMES[obj.label]]++;

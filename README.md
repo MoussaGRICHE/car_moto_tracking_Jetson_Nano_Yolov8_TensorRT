@@ -74,7 +74,7 @@ ${root}/train/runs/detect/train/weights/best.pt
 ### 2-2- Export the engine from the onnx model
 
 	/usr/src/tensorrt/bin/trtexec \
-	--onnx= train/runs/detect/train/weights/best.onnx \
+	--onnx=train/runs/detect/train/weights/best.onnx \
 	--saveEngine=best.engine
 
 After executing the above command, you will get an engine named best.engine .
@@ -156,7 +156,7 @@ for camera:
 - 5th argument : show or save
 
 #### Remark:
-If you are using the Jetson with SSH, you can not see the first frame of the video to draw the line(s). 
+If you are using the Jetson with SSH, you can not see the first frame of the video to draw the line. 
 
 With SSH connection, follow these steps:
 
@@ -176,11 +176,19 @@ With SSH connection, follow these steps:
 
 	scp jetson_name@jetson_server:path_to_frame_in_jetson/frame_for_line.jpg  ${root}/utils/frame_for_line.jpg
 	
-4- On your PC, launch the python script draw_line.py to draw the line(s) and get the points.
+4- On your PC, launch the python script draw_line.py to draw the line and get the points.
 
 	python3 ${root}/utils/draw_line.py
 	
 5- Give the points value to Jetson in the Jetson's terminal.
 	
 
-	
+## Contributing:
+
+Contributions are welcome! Please feel free to submit pull requests to improve the project.
+
+## License:
+
+This project is licensed under the MIT License - see the LICENSE.md file for details.
+
+

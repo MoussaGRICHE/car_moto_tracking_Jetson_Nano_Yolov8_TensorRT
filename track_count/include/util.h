@@ -21,10 +21,12 @@ const std::vector<std::string> DISPALYED_CLASS_NAMES = {
 
 // Function to generate the GStreamer pipeline string
 std::string gstreamer_pipeline (int capture_width, int capture_height, int display_width, int display_height, int framerate, int flip_method) {
+
     return "nvarguscamerasrc ! video/x-raw(memory:NVMM), width=(int)" + std::to_string(capture_width) + ", height=(int)" +
            std::to_string(capture_height) + ", framerate=(fraction)" + std::to_string(framerate) +
            "/1 ! nvvidconv flip-method=" + std::to_string(flip_method) + " ! video/x-raw, width=(int)" + std::to_string(display_width) + ", height=(int)" +
            std::to_string(display_height) + ", format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink";
+
 }
 
 
@@ -53,12 +55,10 @@ bool hasPassedLine(const cv::Point& lineStart, const cv::Point& lineEnd, const c
     cv::Point pointVec(point.x - lineStart.x, point.y - lineStart.y);
 
     int crossProduct = lineVec.x * pointVec.y - lineVec.y * pointVec.x;
-
+    
     // If the cross product is positive and the point is within the line segment, it has passed the line
     return crossProduct > 0 && point.x >= std::min(lineStart.x, lineEnd.x) && point.x <= std::max(lineStart.x, lineEnd.x) && point.y >= std::min(lineStart.y, lineEnd.y) && point.y <= std::max(lineStart.y, lineEnd.y);
 }
-
-
 
 
 #endif // UTIL_H
