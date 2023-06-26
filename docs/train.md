@@ -125,7 +125,8 @@ Evaluate the performance of your model on a validation dataset (images unseen by
 For our model, the metrics of the trained YOLOv8n on Global_dataset are shown in the followin picture.
 
 
-![results](https://github.com/MoussaGRICHE/car_moto_tracking_Jetson_Nano_Yolov8_TensorRT/assets/103992437/193074c7-b8af-4a75-8767-c0b0a12714ff)
+![results](https://github.com/MoussaGRICHE/car_moto_tracking_Jetson_Nano_Yolov8_TensorRT/assets/103992437/1d31c5b8-0dc2-46d5-8194-3629f98e355b)
+
 
 ![val_batch0_pred](https://github.com/MoussaGRICHE/car_moto_tracking_Jetson_Nano_Yolov8_TensorRT/assets/103992437/1ba3e2bc-1b2a-4c7e-9f3a-ff93eeeca13c)
 
