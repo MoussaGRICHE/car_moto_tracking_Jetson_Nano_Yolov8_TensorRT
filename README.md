@@ -64,6 +64,17 @@ ${root}/train/runs/detect/train/weights/best.pt
 	git commit -am "Add the trained yolov8n model"
 	git push
 
+### Remark:
+
+If you want to use an already pretrained model:
+
+	python export_onnx.py --weights path_to_your_pretrained_model
+
+
+	git add path_to_the_onnx_model
+	git commit -am "Add the trained yolov8n model"
+	git push
+	
 ## 2- On the Jetson Nano:
 ### 2-1- Clone this repo on the Jetson Nano:
 
