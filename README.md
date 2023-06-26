@@ -182,6 +182,14 @@ With SSH connection, follow these steps:
 	
 5- Give the points value to Jetson in the Jetson's terminal.
 	
+## References:
+
+https://github.com/triple-Mu/YOLOv8-TensorRT
+
+https://gitee.com/codemaxi-opensource/ByteTrack/tree/main
+
+https://github.com/ultralytics/ultralytics
+
 
 ## Contributing:
 
